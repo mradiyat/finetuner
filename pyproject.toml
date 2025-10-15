@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "finetuner-app"
+version = "0.1.0"
+description = "CLI tool for fine-tuning image generation models with LoRA adapters"
+authors = [{name = "Your Name", email = "you@example.com"}]
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["stable diffusion", "fine-tuning", "lora", "diffusers"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "accelerate>=0.24.0",
+    "diffusers[torch]>=0.24.0",
+    "Pillow>=9.0.0",
+    "python-dotenv>=1.0.0",
+    "torchvision>=0.15.0",
+    "typer[all]>=0.9.0",
+    "tomli-w>=1.0.0",
+    "tomli; python_version < '3.11'",
+]
+
+[project.optional-dependencies]
+develop = ["black", "ruff", "mypy", "pytest"]
+
+[project.scripts]
+finetuner-app = "finetuner_app.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
