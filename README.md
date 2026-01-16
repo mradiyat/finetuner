@@ -68,6 +68,7 @@ finetuner-app train ./my-style --config ./my-style/config.toml
 After training, apply the resulting `lora_weights.safetensors` with your preferred
 Stable Diffusion UI or a Diffusers script, and include your style token in the prompt.
 
+=======
 ### Dataset layout
 
 Datasets should contain images and optional text captions. The app supports:
