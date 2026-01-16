@@ -41,6 +41,34 @@ finetuner-app validate ./my-dataset
 finetuner-app train ./my-dataset --config config.toml
 ```
 
+### Example: train a style from 5 images
+
+If you want to generate new images in the style of five older artworks/photos, follow this
+minimal setup:
+
+1. Create a dataset folder with your five style images under `data/`.
+2. Add a short caption file next to each image that includes a unique style token.
+   For example, if you pick `sksstyle` as the token, a caption might read:
+   `A portrait of a person in the style of sksstyle` or `A landscape painted in sksstyle`.
+3. Generate and edit a config template.
+4. Train the LoRA adapter.
+
+```bash
+mkdir -p ./my-style/data
+# copy 5 images into ./my-style/data
+touch ./my-style/data/image_0001.txt
+echo "A portrait in the style of sksstyle" > ./my-style/data/image_0001.txt
+
+finetuner-app init-config ./my-style
+# edit ./my-style/config.toml to adjust max_train_steps, validation_prompt, etc.
+finetuner-app validate ./my-style
+finetuner-app train ./my-style --config ./my-style/config.toml
+```
+
+After training, apply the resulting `lora_weights.safetensors` with your preferred
+Stable Diffusion UI or a Diffusers script, and include your style token in the prompt.
+
+=======
 ### Dataset layout
 
 Datasets should contain images and optional text captions. The app supports:
@@ -85,3 +113,11 @@ pytest
 ## License
 
 MIT
+
+## FAQ
+
+### Of the four versions, which is best?
+
+At the moment the project only ships a single release, version `0.1.0`, defined in
+`pyproject.toml` and exported through `finetuner_app.__version__`.
+Future releases will expand the version list, but until then there is no comparison to make.
